@@ -8,13 +8,14 @@ require_relative './memo'
 memo_by_id = {}
 
 get '/' do
-  erb :index
+  memos = memo_by_id.values.sort_by(&:updated_at).reverse
+  erb :index, locals: { memos: memos }
 end
 
 post '/memos' do
   id, title, content = params.values_at('id', 'title', 'content')
   memo_by_id[id] = Memo.new(id: id, title: title, content: content)
-  'success'
+  redirect to('/'), 303
 end
 
 get '/memos/new' do
