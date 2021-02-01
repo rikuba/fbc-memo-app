@@ -2,9 +2,15 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    multi_json (1.15.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
+    rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
     rainbow (3.0.0)
     regexp_parser (2.0.3)
     rexml (3.2.4)
@@ -26,6 +32,19 @@ GEM
       rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.4)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+    sinatra-contrib (2.1.0)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.1.0)
+      sinatra (= 2.1.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
     unicode-display_width (2.0.0)
 
 PLATFORMS
@@ -34,6 +53,8 @@ PLATFORMS
 DEPENDENCIES
   rubocop
   rubocop-fjord
+  sinatra
+  sinatra-contrib
 
 BUNDLED WITH
    2.1.4
