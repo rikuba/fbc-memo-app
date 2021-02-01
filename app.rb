@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require 'erubi'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
 require_relative './memo'
+
+set :erb, escape: true
 
 memo_by_id = {}
 
