@@ -21,3 +21,8 @@ end
 get '/memos/new' do
   erb :'memos/edit', locals: { memo: Memo.new }
 end
+
+get '/memos/:memo_id' do |memo_id|
+  memo = memo_by_id[memo_id] || halt(404)
+  erb :'memos/view', locals: { memo: memo }
+end
