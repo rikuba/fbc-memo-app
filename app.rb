@@ -22,7 +22,7 @@ post '/memos' do
 end
 
 get '/memos/new' do
-  erb :'memos/edit', locals: { memo: Memo.new }
+  erb :'memos/new', locals: { memo: Memo.new }
 end
 
 get '/memos/:memo_id' do |memo_id|
