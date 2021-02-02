@@ -37,6 +37,11 @@ class MemoStore
     end
   end
 
+  def delete(id)
+    path = build_path(id)
+    File.delete(path)
+  end
+
   private
 
   def build_path(id)

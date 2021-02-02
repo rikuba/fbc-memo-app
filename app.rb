@@ -37,6 +37,12 @@ patch '/memos/:memo_id' do |memo_id|
   redirect to("/memos/#{memo_id}"), 303
 end
 
+delete '/memos/:memo_id' do |memo_id|
+  memo_store[memo_id] || halt(404)
+  memo_store.delete(memo_id)
+  redirect to('/'), 303
+end
+
 get '/memos/:memo_id/edit' do |memo_id|
   memo = memo_store[memo_id] || halt(404)
   erb :'memos/edit', locals: { memo: memo }

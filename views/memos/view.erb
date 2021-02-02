@@ -2,4 +2,7 @@
   <h2><%= memo.title %></h2>
   <p><%= memo.content %></p>
   <a href="/memos/<%= memo.id %>/edit">変更</a>
+  <form method="post" action="/memos/<%= memo.id %>">
+    <button type="submit" name="_method" value="delete">削除</button>
+  </form>
 </section>
