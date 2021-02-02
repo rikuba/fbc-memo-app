@@ -18,7 +18,7 @@ end
 post '/memos' do
   id, title, content = params.values_at('id', 'title', 'content')
   memo_store[id] = { title: title, content: content }
-  redirect to('/'), 303
+  redirect to("/memos/#{id}"), 303
 end
 
 get '/memos/new' do
