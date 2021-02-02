@@ -24,13 +24,14 @@ get '/' do
 end
 
 post '/memos' do
-  id, title, content = params.values_at('id', 'title', 'content')
+  id = MemoStore.generate_id
+  title, content = params.values_at('title', 'content')
   memo_store[id] = { title: title, content: content }
   redirect to("/memos/#{id}"), 303
 end
 
 get '/memos/new' do
-  erb :'memos/new', locals: { id: MemoStore.generate_id }
+  erb :'memos/new'
 end
 
 get '/memos/:memo_id' do |memo_id|
