@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>メモアプリ</title>
+  <title><% if content_for?(:title) %><%= yield_content(:title) %> - <% end %>メモアプリ</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>

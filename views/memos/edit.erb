@@ -1,3 +1,5 @@
+<% content_for :title, "「#{memo.title}」を編集" %>
+
 <section class="memo-edit-container">
   <h2 class="main-title">「<%= memo.title %>」を編集</h2>
   <form class="memo-form" method="POST" action="/memos/<%= memo.id %>">
