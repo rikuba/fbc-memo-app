@@ -26,6 +26,8 @@ end
 post '/memos' do
   id = MemoStore.generate_id
   title, content = params.values_at('title', 'content')
+  break redirect to('/'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
+
   memo_store[id] = { title: title, content: content }
   redirect to("/memos/#{id}"), 303
 end
