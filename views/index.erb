@@ -1,11 +1,16 @@
-<section>
-  <h2>メモ一覧</h2>
-  <p><a href="/memos/new">追加</a></p>
-  <ul>
+<section class="memo-list-container">
+  <div class="buttons-container">
+    <a class="button button--primary" role="button" href="/memos/new">追加</a>
+  </div>
+  <ul class="memo-list">
   <% memos.each do |memo| %>
-    <li>
-      <a href="/memos/<%= memo.id %>">
-        <%= memo.title.empty? ? '(無題のメモ)' : memo.title %>
+    <li class="memo-list__item">
+      <a class="memo-list__link" href="/memos/<%= memo.id %>">
+        <h3 class="memo-list__title"><%= memo.title %></h3>
+        <time class="memo-list__updated_at" datetime="<%= memo.updated_at.strftime('%F') %>">
+          <%= format_as_date(memo.updated_at) %>
+        </time>
+        <span class="memo-list__content"><%= memo.content %></span>
       </a>
     </li>
   <% end %>

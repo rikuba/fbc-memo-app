@@ -1,7 +1,13 @@
-<section>
-  <form method="POST" action="/memos/<%= memo.id %>">
-    <input type="text" name="title" placeholder="メモのタイトルを入力..." value="<%= memo.title %>">
-    <textarea name="content" placeholder="メモの内容を入力..."><%= memo.content %></textarea>
-    <button type="submit" name="_method" value="PATCH">変更</button>
+<section class="memo-form-container">
+  <form class="memo-form" method="POST" action="/memos/<%= memo.id %>">
+    <div class="memo-form__item">
+      <input class="memo-form__title" type="text" name="title" placeholder="メモのタイトルを入力..." value="<%= memo.title %>">
+    </div>
+    <div class="memo-form__item">
+      <textarea class="memo-form__content" name="content" placeholder="メモの内容を入力..."><%= memo.content %></textarea>
+    </div>
+    <div class="buttons-container">
+      <button class="button button--primary" type="submit" name="_method" value="PATCH">変更</button>
+    </div>
   </form>
 </section>

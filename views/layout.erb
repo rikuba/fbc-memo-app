@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>メモアプリ</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <section>
-    <h1><a href="/">メモアプリ</a></h1>
-    <%== yield %>
+  <section class="app-container">
+    <h1 class="app-title"><a href="/">メモアプリ</a></h1>
+    <main class="main">
+      <%== yield %>
+    </main>
   </section>
 </body>
 </html>

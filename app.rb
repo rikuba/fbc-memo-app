@@ -2,6 +2,7 @@
 
 require 'erubi'
 require 'sinatra'
+require 'sinatra/content_for'
 require 'sinatra/reloader' if development?
 
 require_relative './memo_store'
@@ -9,6 +10,13 @@ require_relative './memo_store'
 set :erb, escape: true
 
 memo_store = MemoStore.new('./memos')
+
+helpers do
+  def format_as_date(time)
+    wday = '日月火水木金土'[time.wday]
+    time.strftime("%Y年%-m月%-d日(#{wday})")
+  end
+end
 
 get '/' do
   memos = memo_store.all.sort_by(&:updated_at).reverse
