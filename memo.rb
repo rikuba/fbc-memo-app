@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require 'securerandom'
-
 class Memo
-  attr_reader :id
-  attr_accessor :title, :content, :updated_at
+  attr_reader :id, :title, :content, :updated_at
 
-  def initialize(id: SecureRandom.uuid, title: '', content: '', updated_at: Time.now)
+  def initialize(id, title, content, updated_at)
     @id = id
     @title = title
     @content = content
