@@ -49,6 +49,12 @@ body {
   content: '\a0';
 }
 
+.memo-list-container .main-title,
+.memo-edit-container .main-title,
+.new-memo-container .main-title {
+  display: none;
+}
+
 .buttons-container {
   text-align: center;
   margin-top: 0.75rem;

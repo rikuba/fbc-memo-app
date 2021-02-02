@@ -1,4 +1,5 @@
-<section class="memo-form-container">
+<section class="memo-edit-container">
+  <h2 class="main-title">「<%= memo.title %>」を編集</h2>
   <form class="memo-form" method="POST" action="/memos/<%= memo.id %>">
     <div class="memo-form__item">
       <input class="memo-form__title" type="text" name="title" placeholder="メモのタイトルを入力..." value="<%= memo.title %>">
