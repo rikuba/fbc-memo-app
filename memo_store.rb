@@ -24,17 +24,17 @@ class MemoStore
     Memo.new(id, title, content, updated_at)
   end
 
-  def []=(id, title:, content:)
-    path = build_path(id)
-    File.write(path, "#{title}\n\n#{content}")
-  end
-
   def all
     paths = Dir.glob(build_path('*'))
     paths.map do |path|
       id = File.basename(path, '.txt')
       self[id]
     end
+  end
+
+  def save(memo)
+    path = build_path(memo.id)
+    File.write(path, "#{memo.title}\n\n#{memo.content}")
   end
 
   def delete(id)

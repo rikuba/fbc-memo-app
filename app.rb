@@ -28,7 +28,7 @@ post '/memos' do
   title, content = params.values_at('title', 'content')
   break redirect to('/'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
 
-  memo_store[id] = { title: title, content: content }
+  memo_store.save(Memo.new(id, title, content))
   redirect to("/memos/#{id}"), 303
 end
 
@@ -42,9 +42,11 @@ get '/memos/:memo_id' do |memo_id|
 end
 
 patch '/memos/:memo_id' do |memo_id|
-  memo_store[memo_id] || halt(404)
+  memo = memo_store[memo_id] || halt(404)
   title, content = params.values_at('title', 'content')
-  memo_store[memo_id] = { title: title, content: content }
+  memo.title = title unless title.nil?
+  memo.content = content unless content.nil?
+  memo_store.save(memo)
   redirect to("/memos/#{memo_id}"), 303
 end
 
