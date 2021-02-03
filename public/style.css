@@ -151,6 +151,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1.25rem;
+  font-family: inherit;
 }
 
 .memo-form__content {
@@ -164,4 +165,5 @@ body {
   height: 20rem;
   line-height: 1.5;
   font-size: 1rem;
+  font-family: inherit;
 }
