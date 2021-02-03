@@ -134,9 +134,8 @@ body {
 }
 
 .memo-list__updated_at {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  float: right;
+  color: #333;
   font-size: 0.875rem;
 }
 
@@ -147,6 +146,7 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: #666;
   font-size: 0.875rem;
 }
 

@@ -4,10 +4,10 @@
   <% memos.each do |memo| %>
     <li class="memo-list__item">
       <a class="memo-list__link" href="/memos/<%= memo.id %>">
-        <h3 class="memo-list__title"><%= memo.title %></h3>
         <time class="memo-list__updated_at" datetime="<%= memo.updated_at.strftime('%F') %>">
           <%= format_as_date(memo.updated_at) %>
         </time>
+        <h3 class="memo-list__title"><%= memo.title %></h3>
         <span class="memo-list__content"><%= memo.content %></span>
       </a>
     </li>
