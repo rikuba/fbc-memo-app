@@ -26,6 +26,10 @@ not_found do
   erb :'404'
 end
 
+error(500) do
+  erb :'500'
+end
+
 get '/' do
   memos = memo_store.all.sort_by(&:updated_at).reverse
   erb :index, locals: { memos: memos }
