@@ -57,7 +57,6 @@ body {
 
 .buttons-container {
   text-align: center;
-  margin-top: 0.75rem;
 }
 
 .button {
@@ -96,7 +95,7 @@ body {
 }
 
 .memo-list {
-  margin-top: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .memo-list__item {
@@ -166,4 +165,8 @@ body {
   line-height: 1.5;
   font-size: 1rem;
   font-family: inherit;
+}
+
+.memo-form .buttons-container {
+  margin-top: 0.75rem;
 }
