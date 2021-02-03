@@ -16,6 +16,10 @@ helpers do
     wday = '日月火水木金土'[time.wday]
     time.strftime("%Y年%-m月%-d日(#{wday})")
   end
+
+  def format_as_time(time)
+    time.strftime('%-H時%-M分%-S秒')
+  end
 end
 
 get '/' do

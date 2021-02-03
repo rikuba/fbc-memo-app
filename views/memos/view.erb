@@ -1,6 +1,9 @@
 <% content_for :title, memo.title %>
 
 <section class="memo-view-container">
+  <time class="memo-view__updated_at" datetime="<%= memo.updated_at.strftime('%FT%T%z') %>">
+    <%= format_as_date(memo.updated_at) %> <%= format_as_time(memo.updated_at) %>
+  </time>
   <h2 class="main-title"><%= memo.title %></h2>
   <div class="memo-view__content"><%= memo.content %></div>
   <form class="buttons-container" method="post" action="/memos/<%= memo.id %>">
