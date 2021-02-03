@@ -36,6 +36,7 @@ post '/memos' do
   title, content = params.values_at('title', 'content')
   break redirect to('/'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
 
+  title = title.tr("\n", ' ')
   memo_store.save(Memo.new(id, title, content))
   redirect to("/memos/#{id}"), 303
 end
