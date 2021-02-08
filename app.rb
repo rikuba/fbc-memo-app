@@ -29,13 +29,17 @@ error(500) do
 end
 
 get '/' do
+  redirect to('/memo'), 302
+end
+
+get '/memo' do
   memos = Memo.all.sort_by(&:updated_at).reverse
   erb :index, locals: { memos: memos }
 end
 
 post '/memos' do
   title, content = params.values_at('title', 'content')
-  break redirect to('/'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
+  break redirect to('/memo'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
 
   memo = Memo.create
   memo.update(title: title, content: content)
@@ -61,7 +65,7 @@ end
 delete '/memos/:memo_id' do |memo_id|
   memo = Memo[memo_id] || halt(404)
   memo.delete
-  redirect to('/'), 303
+  redirect to('/memo'), 303
 end
 
 get '/memos/:memo_id/edit' do |memo_id|
