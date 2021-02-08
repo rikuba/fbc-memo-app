@@ -5,11 +5,9 @@ require 'sinatra'
 require 'sinatra/content_for'
 require 'sinatra/reloader' if development?
 
-require_relative './memo_store'
+require_relative './memo'
 
 set :erb, escape: true
-
-memo_store = MemoStore.new('./memos')
 
 helpers do
   def format_as_date(time)
@@ -31,7 +29,7 @@ error(500) do
 end
 
 get '/' do
-  memos = memo_store.all.sort_by(&:updated_at).reverse
+  memos = Memo.all.sort_by(&:updated_at).reverse
   erb :index, locals: { memos: memos }
 end
 
@@ -39,10 +37,9 @@ post '/memos' do
   title, content = params.values_at('title', 'content')
   break redirect to('/'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
 
-  id = MemoStore.generate_id
-  title = title.tr("\n", ' ')
-  memo_store.save(Memo.new(id, title, content))
-  redirect to("/memos/#{id}"), 303
+  memo = Memo.create
+  memo.update(title: title, content: content)
+  redirect to("/memos/#{memo.id}"), 303
 end
 
 get '/memos/new' do
@@ -50,26 +47,24 @@ get '/memos/new' do
 end
 
 get '/memos/:memo_id' do |memo_id|
-  memo = memo_store[memo_id] || halt(404)
+  memo = Memo[memo_id] || halt(404)
   erb :'memos/view', locals: { memo: memo }
 end
 
 patch '/memos/:memo_id' do |memo_id|
-  memo = memo_store[memo_id] || halt(404)
+  memo = Memo[memo_id] || halt(404)
   title, content = params.values_at('title', 'content')
-  memo.title = title unless title.nil?
-  memo.content = content unless content.nil?
-  memo_store.save(memo)
-  redirect to("/memos/#{memo_id}"), 303
+  memo.update(title: title, content: content)
+  redirect to("/memos/#{memo.id}"), 303
 end
 
 delete '/memos/:memo_id' do |memo_id|
-  memo_store[memo_id] || halt(404)
-  memo_store.delete(memo_id)
+  memo = Memo[memo_id] || halt(404)
+  memo.delete
   redirect to('/'), 303
 end
 
 get '/memos/:memo_id/edit' do |memo_id|
-  memo = memo_store[memo_id] || halt(404)
+  memo = Memo[memo_id] || halt(404)
   erb :'memos/edit', locals: { memo: memo }
 end
