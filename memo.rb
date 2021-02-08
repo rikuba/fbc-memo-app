@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'fileutils'
 require 'securerandom'
 
 class Memo
