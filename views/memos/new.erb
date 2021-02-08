@@ -1,0 +1,16 @@
+<% content_for :title, '新規メモを作成' %>
+
+<section class="new-memo-container">
+  <h2 class="main-title">新規メモを作成</h2>
+  <form class="memo-form" method="POST" action="/memos">
+    <div class="memo-form__item">
+      <input class="memo-form__title" type="text" name="title" placeholder="メモのタイトルを入力..." autofocus>
+    </div>
+    <div class="memo-form__item">
+      <textarea class="memo-form__content" name="content" placeholder="メモの内容を入力..."></textarea>
+    </div>
+    <div class="buttons-container">
+      <button class="button button--primary" type="submit">保存</button>
+    </div>
+  </form>
+</section>
