@@ -41,8 +41,7 @@ post '/memos' do
   title, content = params.values_at('title', 'content')
   break redirect to('/memo'), 303 if (title.nil? || title.empty?) && (content.nil? || content.empty?)
 
-  memo = Memo.create
-  memo.update(title: title, content: content)
+  memo = Memo.create(title: title, content: content)
   redirect to("/memos/#{memo.id}"), 303
 end
 
