@@ -15,38 +15,39 @@ module MemoDB
       updated_at TIMESTAMP WITH TIME ZONE NOT NULL
     )
   SQL
+
+  {
+    create_memo: 'INSERT INTO memos (id, title, content, updated_at) VALUES ($1, $2, $3, $4)',
+    read_memo: 'SELECT id, title, content, updated_at FROM memos WHERE id = $1',
+    read_all_memos: 'SELECT id, title, content, updated_at FROM memos',
+    update_memo: 'UPDATE memos SET title = $1, content = $2, updated_at = $3 WHERE id = $4',
+    delete_memo: 'DELETE FROM memos WHERE id = $1'
+  }.map do |name, sql|
+    @connection.prepare(name.to_s, sql)
+  end
 end
 
 class << MemoDB
   def create(memo)
-    @connection.exec_params(
-      'INSERT INTO memos (id, title, content, updated_at) VALUES ($1, $2, $3, $4)',
-      [memo.id, memo.title, memo.content, memo.updated_at]
-    )
+    @connection.exec_prepared('create_memo', [memo.id, memo.title, memo.content, memo.updated_at])
   end
 
   def read(id)
-    result = @connection.exec_params(
-      'SELECT id, title, content, updated_at FROM memos WHERE id = $1',
-      [id]
-    )
+    result = @connection.exec_prepared('read_memo', [id])
     result.map { |record| record_to_hash(record) }[0]
   end
 
   def read_all
-    result = @connection.exec('SELECT id, title, content, updated_at FROM memos')
+    result = @connection.exec_prepared('read_all_memos')
     result.map { |record| record_to_hash(record) }
   end
 
   def update(memo)
-    @connection.exec_params(
-      'UPDATE memos SET title = $1, content = $2, updated_at = $3 WHERE id = $4',
-      [memo.title, memo.content, memo.updated_at, memo.id]
-    )
+    @connection.exec_prepared('update_memo', [memo.title, memo.content, memo.updated_at, memo.id])
   end
 
   def delete(id)
-    @connection.exec_params('DELETE FROM memos WHERE id = $1', [id])
+    @connection.exec_prepared('delete_memo', [id])
   end
 
   private
