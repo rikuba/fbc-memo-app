@@ -7,6 +7,7 @@ require 'yaml'
 module MemoDB
   config = YAML.load_file('db_config.yml')
   @connection = PG.connect(config)
+  at_exit { @connection.finish }
   @connection.exec(<<~SQL)
     CREATE TABLE IF NOT EXISTS memos (
       id UUID PRIMARY KEY,
