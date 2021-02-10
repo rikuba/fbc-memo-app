@@ -22,7 +22,7 @@ module MemoDB
     read_all_memos: 'SELECT id, title, content, updated_at FROM memos',
     update_memo: 'UPDATE memos SET title = $1, content = $2, updated_at = $3 WHERE id = $4',
     delete_memo: 'DELETE FROM memos WHERE id = $1'
-  }.map do |name, sql|
+  }.each do |name, sql|
     @connection.prepare(name.to_s, sql)
   end
 end
