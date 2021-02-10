@@ -13,11 +13,10 @@
 
 ## 使い方
 
-1. PostgreSQLに任意の名前のデータベースを作成します  
+1. PostgreSQLに`fbc_memo_app`という名前のデータベースを作成します  
+   （異なる名前で作成する場合、`db_config.yml`ファイル内の`dbname`の値を編集します）  
 
        $ createdb fbc_memo_app
-
-1. `db_config.yml`ファイルを環境に合わせて編集します
 
 1. `bundle install` を実行します  
 
