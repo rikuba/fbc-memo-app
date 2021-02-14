@@ -36,7 +36,7 @@ class << Memo
 
   def [](id)
     hash = MemoDB.read(id)
-    new(**hash)
+    hash && new(**hash)
   end
 
   def create(title:, content:)
