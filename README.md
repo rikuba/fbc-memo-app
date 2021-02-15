@@ -4,13 +4,25 @@
 
 フィヨルドブートキャンプのSinatraプラクティスの提出物のためのリポジトリです。
 
+## 前提条件
+
+このWebアプリを起動するには事前にPostgreSQLをインストールしておく必要があります。
+
+- [postgresql — Homebrew Formulae](https://formulae.brew.sh/formula/postgresql)
+- [PostgreSQL: Downloads](https://www.postgresql.org/download/)
+
 ## 使い方
+
+1. PostgreSQLに`fbc_memo_app`という名前のデータベースを作成します  
+   （異なる名前で作成する場合、`db_config.yml`ファイル内の`dbname`の値を編集します）  
+
+       $ createdb fbc_memo_app
 
 1. `bundle install` を実行します  
 
        $ bundle install
 
-2. `bundle exec rackup` でSinatraアプリケーションが起動します  
+1. `bundle exec rackup` でSinatraアプリケーションが起動します  
 
        $ bundle exec rackup
 
@@ -22,4 +34,4 @@
 
        $ APP_ENV=production bundle exec rackup
 
-3. ブラウザで http://localhost:9292/ を開くとメモアプリが表示されます
+1. ブラウザで http://localhost:9292/ を開くとメモアプリが表示されます

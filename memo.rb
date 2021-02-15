@@ -2,73 +2,47 @@
 
 require 'securerandom'
 
+require_relative './memo_db'
+
 class Memo
   attr_reader :id, :title, :content, :updated_at
 
   def update(title: @title, content: @content)
-    validate_title(title)
-
-    File.write(@path, "#{title}\n\n#{content}")
-
     @title = title
     @content = content
-    @updated_at = File.mtime(@path)
+    @updated_at = Time.now
+
+    MemoDB.update(self)
   end
 
   def delete
-    File.delete(@path)
+    MemoDB.delete(@id)
   end
 
   private
 
-  def initialize(path:, id:, title: nil, content: nil, updated_at: nil)
-    validate_title(title)
-
-    @path = path
+  def initialize(id:, title:, content:, updated_at:)
     @id = id
     @title = title
     @content = content
     @updated_at = updated_at
   end
-
-  def validate_title(title)
-    raise 'タイトルに改行を含めることはできません' if /\n/.match?(title)
-  end
 end
 
 class << Memo
   def all
-    paths = Dir.glob(build_path('*'))
-    paths.map do |path|
-      id = File.basename(path, '.txt')
-      self[id]
-    end
+    MemoDB.read_all.map { |hash| new(**hash) }
   end
 
   def [](id)
-    raise '不正なIDです' unless /\A[-0-9A-Za-z]+\Z/.match?(id)
-
-    path = build_path(id)
-    return nil unless File.exist?(path)
-
-    title, content = File.read(path).split("\n\n", 2)
-    updated_at = File.mtime(path)
-    Memo.new(path: path, id: id, title: title, content: content, updated_at: updated_at)
+    hash = MemoDB.read(id)
+    hash && new(**hash)
   end
 
-  def create
-    id = generate_id
-    path = build_path(id)
-    Memo.new(path: path, id: id)
-  end
-
-  private
-
-  def generate_id
-    SecureRandom.uuid
-  end
-
-  def build_path(id)
-    File.join('.', 'memos', "#{id}.txt")
+  def create(title:, content:)
+    id = SecureRandom.uuid
+    memo = new(id: id, title: title, content: content, updated_at: Time.now)
+    MemoDB.create(memo)
+    memo
   end
 end
