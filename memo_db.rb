@@ -54,7 +54,7 @@ class << MemoDB
   private
 
   def record_to_hash(record)
-    hash = record.map { |k, v| [k.to_sym, v] }.to_h
+    hash = record.to_h { |k, v| [k.to_sym, v] }
     hash[:updated_at] = Time.parse(hash[:updated_at])
     hash
   end
